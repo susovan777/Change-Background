@@ -7,11 +7,60 @@
 </head>
 
 <body style="text-align: center;">
-    <h2>This Page Changes Background  Randomly</h2>
+    <h2>This Page Changes Background Randomly</h2>
     <p>To change BG color Click on the Start button</p>
     <button id="start">Start</button>&nbsp;&nbsp;&nbsp;
     <button id="stop">Stop</button>
 
+
+    <script>
+        // We will change the BG color by HEX code
+        /*
+            TASK-1: randomly create the hex code for color
+                - assign the characters used in HEX code
+                - using a loop characters will add and crete a string of length 6
+                - return the string by prefix a # symbol
+            TASK-2: create a function to change the BG color
+                - create a variable for reference of setInterval() method
+                - assign a setInterval() method to the reference variable
+                - change bg color for every 1 sec by adding style to the body
+            TASK-3: create a function to stop the changing BG
+                - use clearInterval() method and pass the reference variable as argument
+                - set the value null to the reference variable
+            TASK-4: call the button and add event listener
+                - all the 2 button with ID selector and add click event-listener 
+        */
+
+        function getColor() {
+            let hexDigit = "0123456789ABCDEFG";
+            let color = "";
+            for (let i = 0; i < 6; i++) {
+                let index = Math.floor(Math.random() * 16);
+                color += hexDigit[index];
+            }
+            console.log(`#${color}`);
+            return `#${color}`;
+        }
+
+        let intervalID;
+        function changeBG() {
+            if (!intervalID) {
+                intervalID = setInterval(() => {
+                    document.querySelector("body").style.backgroundColor = getColor();
+                }, 1000)
+            }
+        }
+
+        function stopBG() {
+            clearInterval(intervalID);
+            intervalID = null;
+            console.log("Stopped");
+        }
+
+        document.getElementById("start").addEventListener("click", changeBG);
+        document.getElementById("stop").addEventListener("click", stopBG);
+
+    </script>
 </body>
 
 </html>
